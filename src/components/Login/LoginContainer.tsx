@@ -2,11 +2,10 @@ import { LoginForm } from "./LoginForm";
 import { FormEventHandler, useContext } from "react";
 import { useAuthContext, AuthContext } from "../auth/AuthContext";
 import { getCredentials } from "../../utils/login";
-//import { navigate } from '../../utils/utils';
 import { useNavigate } from "react-router-dom";
+import { createCookie } from "../../utils/utils";
 
 export const LoginContainer = () => {
-  //const { saveAuth } = useAuthContext();
   const { saveAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -24,6 +23,7 @@ export const LoginContainer = () => {
 
     //console.log(credentials);
 
+    //createCookie("auth", credentials, 4);
     saveAuth(credentials);
     navigate("/home/sexo");
   };

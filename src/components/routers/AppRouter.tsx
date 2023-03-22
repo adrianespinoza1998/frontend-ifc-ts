@@ -2,28 +2,20 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginScreen } from "../../screens/LoginScreen";
 import { ErrorContainer } from "../Error/ErrorContainer";
 import { HomeScreen } from "../../screens/HomeScreen";
-import { useState, useEffect } from "react";
-import { IAuth } from "../../init";
-import { getParsedCookie, createCookie } from "../../utils/utils";
 import AuthProvider from "../auth/AuthProvider";
+import { PrivateRouter } from "./PrivateRouter";
 
 export const AppRouter = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LoginScreen />,
+      element: <AuthProvider children={<LoginScreen />} />,
       errorElement: <ErrorContainer />,
-    },
-    {
-      path: "/about",
-      element: <div>About</div>,
     },
     {
       path: "/home",
       element: (
-        <AuthProvider>
-          <HomeScreen />
-        </AuthProvider>
+        <AuthProvider children={<PrivateRouter children={<HomeScreen />} />} />
       ),
       children: [
         {
